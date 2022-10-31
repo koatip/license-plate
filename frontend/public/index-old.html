@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>License Plates</title>
+
+</head>
+
+<body>
+    <div class="container m-4">
+        <form class="row" id="reg-form" novalidate>
+            <!-- <div class="col-auto">
+                <label for="staticEmail2" class="visually-hidden">Email</label>
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+            </div> -->
+            <div class="col-8">
+                <!-- <label for="inputPassword2" class="visually-hidden">Password</label> -->
+                <input type="text" class="form-control" id="inputPassword2" name="q" placeholder="Search by license...">
+            </div>
+
+            <div class="col">
+                <button type="submit" class="btn btn-primary mb-3">Query database</button>
+            </div>
+
+            <br>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="filter" id="police" value="police">
+                <label class="form-check-label" for="police">
+                    Police cars only
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="filter" id="diplomats" value="diplomatic">
+                <label class="form-check-label" for="diplomats">
+                    Diplomats only
+                </label>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>

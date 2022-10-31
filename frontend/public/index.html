@@ -1,0 +1,85 @@
+<!-- Először forkoljuk, majd klónozzuk a feladatot, csak utána álljunk neki -->
+<!-- Ha a megvalósítandó rajzon látszik placeholder, akkor mi is csináljunk -->
+<!-- Vizsgán elég a submit-re validálni, nem kell már beírás közben -->
+<!-- Input közbeni validálás, akkor jöhet szóba, ha többféle dolgot kell vizsgálni, h jó-e -->
+<!-- backenden nézzük meg milyen formában kapjuk tőle az adatokat, milyen kulcsok alatt mi lesz -->
+<!-- backenden nézzük meg milyen porton fut, mert oda kell küldenünk a kéréseket -->
+<!-- frontend public mappa->app.js->látjuk itt most a végpontunkat, de ha nem lenne tudjuk honnan kell kinézni -->
+<!-- vizsgára csináljunk egy frontend servert, így kiküszöbölhetjük a live server furcsaságait. Előfordul, h frissít, közben ott van egy fontos hibaüzenet, de nem látjuk mert frissít -->
+<!-- csináljunk egy saját servert előre -->
+<!-- src-ben legyen a server.js és a package.json-ben adjuk meg az elérhetőségét: dev: nodemon src/server.js  (nodemont globálisan telepítsük: npm i nodemon -g), indítása: npm run dev -->
+<!-- nodemon-nal futtassuk, nehogy az legyen, h átírtuk, de nem frissíti (Ahhoz újra kellen indítani a servert) -->
+<!-- cors-t és express-t is telepítsük -->
+<!-- külön ablakban nyissuk meg a frontendet és backendet, így nem keverjük össze, h melyikben dolgozunk -->
+<!-- npm i mindkettőben, aztán megnézzük a packge.json-nel, h hogyan tudjuk futtatni. A nodemon globalisan kell, mert ez itt nincs beírva a dependecies-be, így nem telepíti az npm i-ra, ha készen kapjuk -->
+<!-- .gitignore fájl is kell: bele node_modules -->
+<!-- kezdjünk az index.html-lel -->
+<!-- bootstrap min css link a head-be, a js a bodyba. Ezek után kell a saját css és js. -->
+<!-- main.container, bele h1 cím, aztán a formot rögtön a form->validation-ból másoljuk ki. 
+    Validation-nél az első helyről másoljuk ki a form tag-et: <form class="row g-3 needs-validation" novalidate>
+        fontosak ezek az osztályok, amik benne vannak-->
+<!-- gomb legyen primary és a típusa submit -->
+
+<!-- HIBAKEZELÉS: csak bizonyos karaktereket fofadjon el. Legegyszerűbb, ha a HTML-be az inputhoz beteszem a pattern-t. 44. sor,
+--MAXLENGTH-et et is beírhatunk ide, több karaktert nem is enged beírni, mint amennyit beírok ide-->
+<!-- A való életben a backenden is kellene validálni, mert a devtool-on átírhat egy felhasználó bármit, 
+    pl. a maxlegth-et és akkor elküld egy hosszabb inputot simán a felhasználó a backend felé, 
+    ezért uezt a validációt a backenden is meg kell írni és az json-ben küldi vissza a hibaüzenetet, amit a frontenden meg kell jeleníteni-->
+<!-- Formon legyen rajta a needs-validation osztály is -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+    <title>License Plates</title>
+</head>
+
+<body>
+    <main class="container">
+        <h1>License plates</h1>
+        <form id="search-form" class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+                <label for="license-plate" class="form-label">License plate</label>
+                <input type="text" class="form-control" id="license-plate" placeholder="HMZ-140" name="q" maxlength="7"
+                    required />
+                <!-- pattern="^[A-Z0-9-]+$"    az elejétől a szövegben nagy A-tól Z-ig, 0-tól 9-ig és a kötőjel karaktereket fogadja el. Ha ezt a megoldást választom, akkor a hibaüzenetet az alábbi div-be írom, és akkor az üres-re ais azt a hibát dobná, h invalid a rendszám, így inkább a pattern-re vonatkozó validációt a js-ben írjuk meg input eseményre és itt a required miatt megjeleníti üres mező esetén, h nem maradhat üresen a mező. -->
+                <div class="invalid-feedback">Nem maradhat üresen a mező!</div>
+            </div>
+
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="police-cars" name="filter" value="police" />
+                <label class="form-check-label" for="police-cars">Police cars only</label>
+            </div>
+            <div class="form-check mb-3">
+                <input type="radio" class="form-check-input" id="diplomat-cars" name="filter" value="diplomat" />
+                <label class="form-check-label" for="diplomat-cars">Diplomat cars only</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Query database</button>
+        </form>
+        <div class="alert alert-danger d-none" role="alert" id="form-error"></div>
+        <section>
+            <h2>Search results</h2>
+            <table id="search-results" class="table">
+                <thead>
+                    <tr>
+                        <th>License plate</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Color</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+
+</html>
